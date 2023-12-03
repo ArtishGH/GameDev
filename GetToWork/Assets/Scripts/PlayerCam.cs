@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCam : MonoBehaviour
 {
-    public float sensX;
+    /*public float sensX;
     public float sensY;
 
     public Transform orientation;
@@ -31,5 +31,5 @@ public class PlayerCam : MonoBehaviour
         // rotate cam and player
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
         orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
-    }
+    }*/
 }

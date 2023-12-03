@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using TMPro;
 
@@ -37,8 +38,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
     private bool exitingSlope;
-
-
+    
+    [Header("Camera")]
+    [SerializeField] private CinemachineVirtualCamera CameraObject;
+    
     public Transform orientation;
 
     float horizontalInput;
@@ -60,7 +63,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        
+        Cursor.lockState = CursorLockMode.Locked;
 
         readyToJump = true;
 
@@ -73,8 +77,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
+        RotatePlayer();
         SpeedControl();
         StateHandler();
+        ChangeVieldOfView();
 
         // handle drag
         if (grounded)
@@ -116,6 +122,26 @@ public class PlayerMovementAdvanced : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
     }
+    
+    private void RotatePlayer()
+    {
+     float mouseX = Input.GetAxis("Mouse X");
+     transform.Rotate(Vector3.up * mouseX);
+    }
+
+    private void ChangeVieldOfView()
+    {
+        // change smooth to field of view 75
+        // change smooth to field of view 
+        if (state == MovementState.sprinting)
+        {
+            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 75f, 0.1f);   
+        }
+        else
+        {
+            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 60f, 0.1f);
+        }
+    }
 
     private void StateHandler()
     {
@@ -137,7 +163,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         else if (grounded)
         {
             state = MovementState.walking;
-            ////////////////////////////////////////////////////////////////////////////////////
             moveSpeed = walkSpeed;
         }
 
