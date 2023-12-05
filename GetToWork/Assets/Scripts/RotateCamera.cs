@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class RotateCamera : MonoBehaviour
 {
-    
-    [SerializeField] private Transform player;
-    
+
     void Update()
     {
         float mouseY = Input.GetAxis("Mouse Y");
