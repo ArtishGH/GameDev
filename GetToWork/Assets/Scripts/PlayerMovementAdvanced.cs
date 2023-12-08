@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Managers;
 using UnityEngine;
 using TMPro;
 
@@ -73,9 +74,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.IsGamePaused)
+        {
+            return;
+        }
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
+        
         MyInput();
         RotatePlayer();
         SpeedControl();
@@ -135,11 +140,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // change smooth to field of view 
         if (state == MovementState.sprinting)
         {
-            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 75f, 0.1f);   
+            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 75f, 0.5f);   
         }
         else
         {
-            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 60f, 0.1f);
+            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 60f, 0.5f);
         }
     }
 
