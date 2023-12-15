@@ -8,8 +8,6 @@ public class PauseGameMenu : MonoBehaviour
         {
             GameManager gameManager = GameManager.Instance;
             
-            Debug.Log(gameManager);
-            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (gameManager.IsGamePaused)

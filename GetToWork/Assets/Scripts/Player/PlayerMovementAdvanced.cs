@@ -53,6 +53,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     Rigidbody rb;
 
     public MovementState state;
+    
     public enum MovementState
     {
         walking,
@@ -61,7 +62,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         air
     }
 
-    private void Start()
+    private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
         
@@ -70,6 +71,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         readyToJump = true;
 
         startYScale = transform.localScale.y;
+        
     }
 
     private void Update()
