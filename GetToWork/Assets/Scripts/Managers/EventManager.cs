@@ -1,14 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class EventManager : Singleton<EventManager>
 {   
     public event Action<GameObject> onItemHovered = delegate {  };
     public event Action<GameObject > onItemUnhovered = delegate {  };
+    
+    public event Action<GameObject> onItemPickedUp = delegate {  };
     
     public void ItemHovered(GameObject rayCastObject)
     {
@@ -17,6 +16,11 @@ public class EventManager : Singleton<EventManager>
     
     public void ItemUnhovered([CanBeNull] GameObject rayCastObject)
     {
-        onItemUnhovered?.Invoke(rayCastObject);
+        onItemUnhovered?.Invoke(rayCastObject); 
+    }
+    
+    public void ItemPickedUp(GameObject rayCastObject)
+    {
+        onItemPickedUp?.Invoke(rayCastObject);
     }
 }

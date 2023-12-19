@@ -7,18 +7,18 @@ public class RayCast : MonoBehaviour
     [Header("Raycast Settings")]
     public float range = 10f;
     
-    private GameObject currentItem;
+    private GameObject currentItem = null;
 
-    private void OnEnable()
+    private void Awake()
     {
         EventManager.Instance.onItemHovered += HoveredItem;
     }
     
-    private void OnDisable()
+    private void OnDestroy()
     {
         EventManager.Instance.onItemHovered -= HoveredItem;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -37,14 +37,12 @@ public class RayCast : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, range))
             {
                 EventManager.Instance.ItemHovered(hit.transform.gameObject);
+                this.currentItem = hit.transform.gameObject;
             }
             else
             {
-                if (this.currentItem != null)
-                {
                     this.currentItem = null;
                     EventManager.Instance.ItemUnhovered(null);
-                }
             }
             
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,7 +11,7 @@ public class UserInterfaceManager : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI textMeshPro = null;
     
-    void Start()
+    void Awake()
     {
         if (textMeshPro == null)
         {
@@ -20,14 +21,22 @@ public class UserInterfaceManager : MonoBehaviour
         EventManager.Instance.onItemHovered += ShowItemName;
         EventManager.Instance.onItemUnhovered += HideItemName;
     }
-    
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.onItemHovered -= ShowItemName;
+        EventManager.Instance.onItemUnhovered -= HideItemName;
+    }
+
     private void ShowItemName(GameObject rayCastObject)
     {
+        
+        
         ItemController itemController = rayCastObject.GetComponent<ItemController>();
 
         if (itemController != null)
         {
-            textMeshPro.text = itemController.item.itemName;
+            textMeshPro.text = itemController.item.ItemName;
         }
         else
         {

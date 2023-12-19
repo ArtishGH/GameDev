@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractionController : MonoBehaviour
@@ -26,9 +23,8 @@ public class InteractionController : MonoBehaviour
             ItemController itemController = _object.GetComponent<ItemController>();
             if (itemController)
             {
-                itemController.PickUpItem();
+                EventManager.Instance.ItemPickedUp(_object);
             }
-            
         }
     }
     

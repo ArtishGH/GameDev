@@ -2,13 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : Model
 {
-    public string itemName { get; private set;}
+    public string ItemName { get; private set;}
+    public Sprite ItemIcon { get; private set; }
     
-    public Item(string itemName)
+    public GameObject Prefab { get; private set; }
+    
+    public Item(string itemName, Sprite itemIcon, GameObject prefab)
     {
-        this.itemName = itemName;
+        this.ItemName = itemName;
+        this.ItemIcon = itemIcon;
+        this.Prefab = prefab;
     }
 }

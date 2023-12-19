@@ -20,7 +20,7 @@ public class PickUpItem : MonoBehaviour
             ItemController itemController = _objectToPickUp.GetComponent<ItemController>();
             if (itemController)
             {
-                itemController.PickUpItem();
+                itemController.PickUpItem(_objectToPickUp);
             }
         }
     }
