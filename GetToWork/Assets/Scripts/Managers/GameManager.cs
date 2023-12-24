@@ -9,12 +9,6 @@ namespace Managers
         public bool IsGamePaused { get; private set; }
         public bool IsGameStarted { get; private set; }
         
-        protected override void Awake()
-        {
-            base.Awake();
-            DontDestroyOnLoad(gameObject);
-        }
-                
         public void PauseGame()
         {
             IsGamePaused = true;

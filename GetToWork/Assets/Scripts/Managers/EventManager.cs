@@ -9,6 +9,8 @@ public class EventManager : Singleton<EventManager>
     
     public event Action<GameObject> onItemPickedUp = delegate {  };
     
+    public event Action<Item> onItemPlacedInInventory = delegate {  }; 
+    
     public void ItemHovered(GameObject rayCastObject)
     {
         onItemHovered?.Invoke(rayCastObject);
@@ -22,5 +24,11 @@ public class EventManager : Singleton<EventManager>
     public void ItemPickedUp(GameObject rayCastObject)
     {
         onItemPickedUp?.Invoke(rayCastObject);
+    }
+    
+    
+    public void ItemPlacedInInventory(Item rayCastObject)
+    {
+        onItemPlacedInInventory?.Invoke(rayCastObject);
     }
 }

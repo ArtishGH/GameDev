@@ -34,13 +34,9 @@ public class UserInterfaceManager : MonoBehaviour
         
         ItemController itemController = rayCastObject.GetComponent<ItemController>();
 
-        if (itemController != null)
+        if (itemController)
         {
             textMeshPro.text = itemController.item.ItemName;
-        }
-        else
-        {
-            textMeshPro.text = "";
         }
     }
     

@@ -21,8 +21,8 @@ public class ItemController : MonoBehaviour
         item = new Item(itemName, itemIcon, prefab);
     }
     
-    public void PickUpItem(GameObject xdd)
+    public void PickUpItem(GameObject itemGameObject)
     {
-        Destroy(xdd);
+        Destroy(itemGameObject);
     }
 }

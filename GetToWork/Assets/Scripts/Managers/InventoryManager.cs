@@ -6,13 +6,37 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Exceptions;
 
-public  class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : Singleton<InventoryManager>
 {
     [SerializeField] private int MaxItemsInInventory = 5;
     
     public int CurrectItemSelectedIndex { get; private set; } = 0;
+
+    [ItemCanBeNull] public List<Item> ItemsList { get; private set; } = new List<Item>();
+
+    private void Start()
+    {
+        for (int i = 0; i < MaxItemsInInventory; i++)
+        {
+            ItemsList.Add(null);
+        }
+    }
+
+    public void NextItem()
+    {
+        if (CurrectItemSelectedIndex < MaxItemsInInventory - 1)
+        {
+            CurrectItemSelectedIndex++;
+        }
+    }
     
-    [ItemCanBeNull] public List<Item> ItemsList { get; private set; } = new List<Item>() {null, null, null, null, null};
+    public void PreviousItem()
+    {
+        if (CurrectItemSelectedIndex > 0)
+        {
+            CurrectItemSelectedIndex--;
+        }
+    }
 
     public void AddItem(Item item)
     {
@@ -21,6 +45,7 @@ public  class InventoryManager : Singleton<InventoryManager>
             if (ItemsList[i] == null)
             {
                 ItemsList[i] = item;
+                EventManager.Instance.ItemPlacedInInventory(item);
                 return;
             }
         }
