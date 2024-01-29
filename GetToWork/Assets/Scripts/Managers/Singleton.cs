@@ -14,8 +14,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
                 if (_instance == null)
                 {
-                    GameObject singletonObject = new GameObject(typeof(T).Name);
-                    _instance = singletonObject.AddComponent<T>();
+                    _instance = new GameObject(typeof(T).Name).AddComponent<T>();
                 }
             }
 
@@ -23,7 +22,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    protected virtual void Awake()
+    protected virtual void Awake()  
     {
         if (_instance == null)
         {

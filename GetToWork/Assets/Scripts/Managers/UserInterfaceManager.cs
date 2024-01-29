@@ -20,28 +20,33 @@ public class UserInterfaceManager : MonoBehaviour
         }
         EventManager.Instance.onItemHovered += ShowItemName;
         EventManager.Instance.onItemUnhovered += HideItemName;
+        EventManager.Instance.onItemPickedUp += HideItemName;
     }
 
     private void OnDestroy()
     {
         EventManager.Instance.onItemHovered -= ShowItemName;
         EventManager.Instance.onItemUnhovered -= HideItemName;
+        EventManager.Instance.onItemPickedUp -= HideItemName;
     }
 
     private void ShowItemName(GameObject rayCastObject)
-    {
-        
-        
+    {   
         ItemController itemController = rayCastObject.GetComponent<ItemController>();
+
+        Debug.Log(itemController);
 
         if (itemController)
         {
             textMeshPro.text = itemController.item.ItemName;
+            return;
         }
+        HideItemName(null);
     }
     
     private void HideItemName(GameObject rayCastObject)
     {
         textMeshPro.text = "";
     }
+    
 }

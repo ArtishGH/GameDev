@@ -11,6 +11,10 @@ public class EventManager : Singleton<EventManager>
     
     public event Action<Item> onItemPlacedInInventory = delegate {  }; 
     
+    public event Action<Item> onItemRemovedFromInventory = delegate {  };
+    
+    public event Action onInventoryReady = delegate {  };
+    
     public void ItemHovered(GameObject rayCastObject)
     {
         onItemHovered?.Invoke(rayCastObject);
@@ -27,8 +31,18 @@ public class EventManager : Singleton<EventManager>
     }
     
     
-    public void ItemPlacedInInventory(Item rayCastObject)
+    public void ItemPlacedInInventory(Item item)
     {
-        onItemPlacedInInventory?.Invoke(rayCastObject);
+        onItemPlacedInInventory?.Invoke(item);
+    }
+    
+    public void ItemRemovedFromInventory(Item item)
+    {
+        onItemRemovedFromInventory?.Invoke(item);
+    }
+    
+    public void InventoryReady()
+    {
+        onInventoryReady?.Invoke();
     }
 }

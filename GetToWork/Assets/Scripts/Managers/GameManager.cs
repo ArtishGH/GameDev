@@ -8,6 +8,10 @@ namespace Managers
         
         public bool IsGamePaused { get; private set; }
         public bool IsGameStarted { get; private set; }
+
+        [Header("Player Settings")]
+        public GameObject Player;
+        public GameObject PlaceToThrowItems;
         
         public void PauseGame()
         {

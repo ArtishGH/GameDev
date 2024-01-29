@@ -13,6 +13,9 @@ public class InventoryManager : Singleton<InventoryManager>
     public int CurrectItemSelectedIndex { get; private set; } = 0;
 
     [ItemCanBeNull] public List<Item> ItemsList { get; private set; } = new List<Item>();
+    
+    [CanBeNull] public Item CurrentItemHolding => ItemsList[CurrectItemSelectedIndex];
+    public GameObject CurrentItemHoldingGameObject;
 
     private void Start()
     {
@@ -20,6 +23,7 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             ItemsList.Add(null);
         }
+        EventManager.Instance.InventoryReady();
     }
 
     public void NextItem()
@@ -58,6 +62,8 @@ public class InventoryManager : Singleton<InventoryManager>
         Item item = ItemsList[index];
         
         ItemsList[index] = null;
+
+        EventManager.Instance.ItemRemovedFromInventory(item);
         
         return item;
     }

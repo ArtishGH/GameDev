@@ -1,21 +1,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Managers;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
-using Image = UnityEngine.UI.Image;
 
 public class ItemView : MonoBehaviour
 {
     public int itemIndex;
 
     [SerializeField] private Image SpriteRenderer;
+    
+    private GameObject _placeToThrowItems;
     // Update is called once per frame
     
-    private void Start()
+    private void Awake()
     {
         EventManager.Instance.onItemPlacedInInventory += ItemUpdate;
+        EventManager.Instance.onItemRemovedFromInventory += ItemUpdate;
+
+        _placeToThrowItems = GameManager.Instance.PlaceToThrowItems;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.onItemPlacedInInventory -= ItemUpdate;
+        EventManager.Instance.onItemRemovedFromInventory -= ItemUpdate;
     }
 
     private void Update()
@@ -37,14 +48,18 @@ public class ItemView : MonoBehaviour
                 return;
             }
             Item itemremoved = InventoryManager.Instance.RemoveItem(current_index);
+
             GameObject itemInstance = Instantiate(itemremoved.Prefab);
             
-            itemInstance.transform.position = Camera.main.transform.position + Camera.main.transform.forward;
+            itemInstance.transform.position = _placeToThrowItems.transform.position;
             
-            Rigidbody rigidbody = itemInstance.AddComponent<Rigidbody>();
+            Rigidbody rigidbody = itemInstance.GetComponent<Rigidbody>();
             
-            rigidbody.AddForce(Camera.main.transform.forward * 2, ForceMode.Impulse);
+            Collider collider = itemInstance.GetComponent<Collider>();
             
+            itemInstance.SetActive(true);
+            
+            rigidbody.AddForce(_placeToThrowItems.transform.forward * 5, ForceMode.Impulse);
         }
         
     }

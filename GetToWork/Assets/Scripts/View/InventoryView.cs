@@ -11,16 +11,19 @@ public class InventoryView : MonoBehaviour
 
     private void Start()
     {
+        EventManager.Instance.onInventoryReady += AddToInventory;
+    }
+
+    private void AddToInventory()
+    {
         InventoryManager inventoryManager = InventoryManager.Instance;
-        
+
         for (int i = 0; i < inventoryManager.ItemsList.Count; i++)
         {
             GameObject newItemViewPrefab = Instantiate(ItemViewPrefab);
             newItemViewPrefab.GetComponent<ItemView>().itemIndex = i;
-            // ItemViewPrefab.transform.SetParent(PlaceToPutItems.transform);
             newItemViewPrefab.transform.SetParent(PlaceToPutItems.transform);
             
         }
-        
     }
 }

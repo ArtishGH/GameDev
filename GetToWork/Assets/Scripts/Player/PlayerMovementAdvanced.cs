@@ -142,11 +142,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
         // change smooth to field of view 
         if (state == MovementState.sprinting)
         {
-            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 75f, 0.5f);   
+            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 75f, 0.2f);   
         }
         else
         {
-            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 60f, 0.5f);
+            CameraObject.m_Lens.FieldOfView = Mathf.Lerp(CameraObject.m_Lens.FieldOfView, 60f, 0.2f);
         }
     }
 

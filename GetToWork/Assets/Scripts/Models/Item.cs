@@ -17,4 +17,11 @@ public class Item : Model
         this.ItemIcon = itemIcon;
         this.Prefab = prefab;
     }
+
+    public Item(Item item)
+    {
+        this.ItemName = item.ItemName;
+        this.ItemIcon = item.ItemIcon;
+        this.Prefab = item.Prefab;
+    }
 }
